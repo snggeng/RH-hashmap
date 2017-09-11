@@ -1,4 +1,4 @@
-class HashMap{
+export default class HashMap{
   constructor(size){
     this.size = size
     this.capacity = 0
