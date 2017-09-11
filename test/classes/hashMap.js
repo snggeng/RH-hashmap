@@ -1,5 +1,5 @@
-const assert = require('assert')
-const HashMap = require('../hashmap.js')
+import assert from 'assert'
+import HashMap from '../../RH-HashMap'
 
 describe('HashMap', () => {
   describe('#set()', () => {
