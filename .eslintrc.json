@@ -6,7 +6,9 @@
         "mocha": true,
         "es6": true
     },
+    "plugins": ["import"],
     "rules": {
-      "semi": "off"
+      "semi": "off",
+      "import/no-unresolved": "off"
     }
 }

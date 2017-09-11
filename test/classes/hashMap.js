@@ -1,11 +1,16 @@
-import assert from 'assert'
+import { expect } from 'chai'
 import HashMap from '../../RH-HashMap'
 
+/* CONSTANTS */
+// const defaultSetVal = null
+/* TESTS */
 describe('HashMap', () => {
   describe('#set()', () => {
     it('should return a boolean value', () => {
       const h = new HashMap(10)
-      assert.equal(h.indexOf(4))
+      const ti = h.set('newkey', 'value')
+      expect(ti).to.equal(null)
+      // assert.equal(ti.indexOf(4))
     })
   })
 })

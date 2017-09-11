@@ -21,6 +21,11 @@
   "scripts": {
     "test": "mocha"
   },
+  "babel": {
+    "presets": [
+        "es2015"
+    ]
+  },
   "author": "Geng Sng, Duke University",
   "license": "MIT"
 }

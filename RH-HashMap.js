@@ -16,6 +16,7 @@ export default class HashMap{
      * @param {object} value - value in HashMap that can be any object data structure
      * @return {boolean} true || false - on success of set()
      */
+     if (typeof(k) !== String) throw new TypeError('TypeError: first argument of the Set() method needs to be of the type <String>')
      let key = this.processKey(k)[0],
          hashIndex = this.processKey(k)[1],
          probeLength = 0,
