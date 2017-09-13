@@ -8,6 +8,10 @@ export default class HashMap{
     this.values = new Array(this.size).fill(null)
   }
 
+  get length() {
+    return this.size
+  }
+
   set(k, value) {
     /**
      * Stores the given key/value pair in hash map
@@ -16,7 +20,8 @@ export default class HashMap{
      * @param {object} value - value in HashMap that can be any object data structure
      * @return {boolean} true || false - on success of set()
      */
-     if (typeof(k) !== String) throw new TypeError('TypeError: first argument of the Set() method needs to be of the type <String>')
+
+     //console.log('type of key', typeof(k))
      let key = this.processKey(k)[0],
          hashIndex = this.processKey(k)[1],
          probeLength = 0,
@@ -25,13 +30,12 @@ export default class HashMap{
          newProbeLength = 0
 
       while (probeLength < this.size) {
+        //console.log(typeof(key), key)
+        if (typeof(key) !== String) {break}
         // Key does not exist
         if (!this.keys[hashIndex]) {
           // Store probe length with key
-          //console.log('key does not exist')
-          //if (hashIndex < 0) {hashIndex *= -1}
           this.keys[hashIndex] = [key, probeLength]
-          //console.log(hashIndex)
           this.values[hashIndex] = value
           this.capacity++
           // Swap if elemToSwap is found
@@ -40,7 +44,7 @@ export default class HashMap{
             this.swapElements(elemToSwap, hashIndex, newProbeLength)
           }
           return true
-        } else if (this.keys[hashIndex][0] === key){
+        } else if (this.keys[hashIndex][0] === key) {
           // Key already exists, update
           //console.log('update existing key')
           this.values[hashIndex] = value
@@ -48,7 +52,6 @@ export default class HashMap{
         } else {
           // Hash index is occupied - start linear probing
           // If existing element's probe length is lower, track length for swapping
-
           if (!elemToSwapFound && this.keys[hashIndex][1] < probeLength) {
             elemToSwap = hashIndex
             elemToSwapFound = true
@@ -132,7 +135,7 @@ export default class HashMap{
     [a, b] = [b, a]
     [this.values[currentIndex], this.values[newIndex]] = [this.values[newIndex], this.values[currentIndex]]
   }
-
+  // Naive hashCode function that returns only positive hashCodes
   hashCode(str){
     let hash = 0;
     for(let i = 0; i < str.length; i++) {

@@ -5,12 +5,27 @@ import HashMap from '../../RH-HashMap'
 // const defaultSetVal = null
 /* TESTS */
 describe('HashMap', () => {
-  describe('#set()', () => {
-    it('should return a boolean value', () => {
+  describe('#set() should return a boolean value', () => {
+    it('should return false when arg k is not of type String', () => {
       const h = new HashMap(10)
-      const ti = h.set('newkey', 'value')
-      expect(ti).to.equal(null)
-      // assert.equal(ti.indexOf(4))
+      const ti = h.set({ new: 'message' }, 'value') // wrong value
+      expect(ti).to.equal(false)
+    })
+
+    it('should return true when arg k is of type String', () => {
+      const h = new HashMap(10)
+      const ti = h.set('newkey', { new: 'message' })
+      expect(ti).to.equal(true)
+    })
+
+    it('should return true for all values of arg value', () => {
+      const h = new HashMap(10)
+      const t1 = h.set('k0', { new: 'message' })
+      const t2 = h.set('k1', ['hi', 'hi'])
+      const t3 = h.set('k2', 'new')
+      expect(t1).to.equal(true)
+      expect(t2).to.equal(true)
+      expect(t3).to.equal(true)
     })
   })
 })
