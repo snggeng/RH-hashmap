@@ -1,10 +1,7 @@
 'use strict'
 
-class Logger {
-
+export default class Logger {
   log (message) {
     console.log(message)
   }
 }
-
-module.exports = Logger

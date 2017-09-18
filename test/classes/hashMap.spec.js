@@ -5,17 +5,27 @@ import HashMap from '../../RH-HashMap'
 // const defaultSetVal = null
 /* TESTS */
 describe('HashMap', () => {
+  describe('Constructor', () => {
+    it('should be created with three properties: commandLineArgs, greeting, and logger', () => {
+      const sut = new HashMap()
+      expect(sut).to.have.property('size')
+      expect(sut).to.have.property('capacity')
+      expect(sut).to.have.property('keys')
+      expect(sut).to.have.property('values')
+    })
+  })
+
   describe('#set() should return a boolean value', () => {
     it('should return false when arg k is not of type String', () => {
       const h = new HashMap(10)
-      const ti = h.set({ new: 'message' }, 'value') // wrong value
-      expect(ti).to.equal(false)
+      const sut = h.set({ new: 'message' }, 'value') // wrong value
+      expect(sut).to.equal(false)
     })
 
     it('should return true when arg k is of type String', () => {
       const h = new HashMap(10)
-      const ti = h.set('newkey', { new: 'message' })
-      expect(ti).to.equal(true)
+      const sut = h.set('newkey', { new: 'message' })
+      expect(sut).to.equal(true)
     })
 
     it('should return true for all values of arg value', () => {
