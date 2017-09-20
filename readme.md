@@ -1,7 +1,33 @@
 # KPCB Engineering Fellows Program
+Implementation of Fix-sized HashMap using RobinHood Hashing. When choosing between the existing methods of resolving hash collisions,
 
 ## Source Tree
-
+```
+├── OA-HashMap.js
+├── RH-HashMap.js
+├── index.js
+├── logger.js
+├── package-lock.json
+├── package.json
+├── readme.md
+└── test
+    ├── classes
+    │   ├── hashMap.spec.js
+    │   └── logger.spec.js
+    └── coverage
+        ├── coverage.json
+        ├── lcov-report
+        │   ├── base.css
+        │   ├── index.html
+        │   ├── prettify.css
+        │   ├── prettify.js
+        │   ├── sort-arrow-sprite.png
+        │   ├── sorter.js
+        │   └── test
+        │       ├── hashMap.js.html
+        │       └── index.html
+        └── lcov.info
+```
 ## Commands
 
 ## Problem

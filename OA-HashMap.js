@@ -1,4 +1,4 @@
-let NaiveHashMap = class{
+export default class NaiveHashMap {
   constructor(initialCapacity) {
     this.length = 0
     this._slots = []

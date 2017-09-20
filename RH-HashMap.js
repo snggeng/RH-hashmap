@@ -1,7 +1,10 @@
-'use strict'
 
-export default class HashMap{
-  constructor(size){
+
+export default class HashMap {
+  constructor(size) {
+    // Catch errors
+    if (!size) throw new Error('HashMap must be initialized with an argument: new HashMap(<Number>).\n')
+    if (typeof size !== 'number') throw new TypeError('HashMap requires a Number as argument.\n')
     this.size = size
     this.capacity = 0
     this.keys = new Array(this.size).fill(null)
@@ -20,50 +23,52 @@ export default class HashMap{
      * @param {object} value - value in HashMap that can be any object data structure
      * @return {boolean} true || false - on success of set()
      */
+    // Catch errors
+    if (!k || !value) throw new Error('set() method must contain 2 arguments: HashMap.set(<String>, <Object>).\n')
+    if (typeof k !== 'string') throw new TypeError('First argument of set() must be of type <String>.\n')
+    // if (this.load() > 1) return
+    // console.log('type of key', typeof(k))
+    const key = this.processKey(k)[0]
+    let hashIndex = this.processKey(k)[1]
+    let probeLength = 0
+    let elemToSwap = null
+    let elemToSwapFound = false
+    let newProbeLength = 0
 
-     //console.log('type of key', typeof(k))
-     let key = this.processKey(k)[0],
-         hashIndex = this.processKey(k)[1],
-         probeLength = 0,
-         elemToSwap = null,
-         elemToSwapFound = false,
-         newProbeLength = 0
-
-      while (probeLength < this.size) {
-        //console.log(typeof(key), key)
-        if (typeof(key) !== String) {break}
-        // Key does not exist
-        if (!this.keys[hashIndex]) {
-          // Store probe length with key
-          this.keys[hashIndex] = [key, probeLength]
-          this.values[hashIndex] = value
-          this.capacity++
-          // Swap if elemToSwap is found
-          if (elemToSwapFound) {
-            //console.log('elem to swap found: ', elemToSwap, hashIndex)
-            this.swapElements(elemToSwap, hashIndex, newProbeLength)
-          }
-          return true
-        } else if (this.keys[hashIndex][0] === key) {
-          // Key already exists, update
-          //console.log('update existing key')
-          this.values[hashIndex] = value
-          return true
-        } else {
-          // Hash index is occupied - start linear probing
-          // If existing element's probe length is lower, track length for swapping
-          if (!elemToSwapFound && this.keys[hashIndex][1] < probeLength) {
-            elemToSwap = hashIndex
-            elemToSwapFound = true
-            newProbeLength = probeLength
-            //[elemToSwap, elemToSwapFound, newProbeLength] = [hashIndex, true, probeLength]
-          }
-          // Increment index and try again
-          hashIndex = this.incrementHash(hashIndex)
+    while (probeLength < this.size) {
+      if (typeof (key) !== 'string') { break }
+      // Key does not exist
+      if (!this.keys[hashIndex]) {
+        // Store probe length with key
+        this.keys[hashIndex] = [key, probeLength]
+        this.values[hashIndex] = value
+        this.capacity++
+        // Swap if elemToSwap is found
+        if (elemToSwapFound) {
+          // console.log('elem to swap found: ', elemToSwap, hashIndex)
+          this.swapElements(elemToSwap, hashIndex, newProbeLength)
         }
-        probeLength++
+        return true
+      } else if (this.keys[hashIndex][0] === key) {
+        // Key already exists, update
+        // console.log('update existing key')
+        this.values[hashIndex] = value
+        return true
       }
-      return false
+      // Hash index is occupied - start linear probing
+      // If existing element's probe length is lower, track length for swapping
+      if (!elemToSwapFound && this.keys[hashIndex][1] < probeLength) {
+        elemToSwap = hashIndex
+        elemToSwapFound = true
+        newProbeLength = probeLength
+        // [elemToSwap, elemToSwapFound, newProbeLength] = [hashIndex, true, probeLength]
+      }
+      // Increment index and try again
+      hashIndex = this.incrementHash(hashIndex)
+
+      probeLength += 1
+    }
+    return false
   }
 
   get(k) {
@@ -74,24 +79,20 @@ export default class HashMap{
      * @return {string} value on success or null if key has no value
      */
 
-     // Check if HashMap is empty
-     if (this.load() === 0) return null
-     let key = this.processKey(k)[0],
-         hashIndex = this.processKey(k)[1]
-      // console.log('hashindex', hashIndex, typeof(hashIndex))
-      // console.log('keys', this.keys)
-      // console.log('hash index', this.keys[hashIndex][0])
-      for (let i =0; i < this.size; i++) {
-        if (this.keys[hashIndex] !== null && this.keys[hashIndex][0] === key) {
-          // let value = this.values[hashIndex]
-          // [this.keys[hashIndex], this.values[hashIndex]] = [null, null]
-          // this.capacity--
-          return this.values[hashIndex]
-        } else {
-          // index is null or keys don't match, linear probing
-          hashIndex = this.incrementHash(hashIndex)
-        }
+    // Check if HashMap is empty
+    if (this.load() === 0) return null
+    const key = this.processKey(k)[0]
+    let hashIndex = this.processKey(k)[1]
+    for (let i = 0; i < this.size; i += 1) {
+      if (this.keys[hashIndex] !== null && this.keys[hashIndex][0] === key) {
+        // let value = this.values[hashIndex]
+        // [this.keys[hashIndex], this.values[hashIndex]] = [null, null]
+        // this.capacity--
+        return this.values[hashIndex]
       }
+      // index is null or keys don't match, linear probing
+      hashIndex = this.incrementHash(hashIndex)
+    }
     return null
   }
 
@@ -111,11 +112,11 @@ export default class HashMap{
   }
 
   // Helper Functions
-  clearArray(arr) {
-    while (arr.length > 0) { arr.pop() } // fastest way to empty array keeping var references via jsperf
+  clearArray() {
+    // fastest way to empty array keeping var references via jsperf
+    while (this.length > 0) { this.pop() }
   }
-
-  processKey (key) {
+  processKey(key) {
     return [key, this.hashCode(key) % this.size]
   }
 
@@ -126,26 +127,26 @@ export default class HashMap{
   swapElements(currentIndex, newIndex, newProbeLength) {
     // Calculate the new probe length for existing element
     let delta = newIndex - currentIndex
-    if (delta < 0) { delta = this.size - currentIndex + newIndex }
+    if (delta < 0) { delta = (this.size - currentIndex) + newIndex }
     let a = this.keys[currentIndex]
     let b = this.keys[newIndex]
     a = [this.keys[currentIndex][0], this.keys[currentIndex][1] + delta]
     b = [this.keys[newIndex][0], newProbeLength]
     // Swap Elements
-    [a, b] = [b, a]
-    [this.values[currentIndex], this.values[newIndex]] = [this.values[newIndex], this.values[currentIndex]]
+      [a, b] = [b, a]
+        [this.values[currentIndex], this.values[newIndex]] = [this.values[newIndex], this.values[currentIndex]]
   }
   // Naive hashCode function that returns only positive hashCodes
-  hashCode(str){
+  hashCode(str) {
     let hash = 0;
-    for(let i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i++) {
       hash = (((hash << 5) - hash) + str.charCodeAt(i))
     }
     return hash & 0xFFFFFFFF;
   }
 
   get probeLengths() {
-    for (let length in this.keys) {
+    for (const length in this.keys) {
       if (length) return length[1]
     }
   }

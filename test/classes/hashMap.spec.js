@@ -6,8 +6,8 @@ import HashMap from '../../RH-HashMap'
 /* TESTS */
 describe('HashMap', () => {
   describe('Constructor', () => {
-    it('should be created with three properties: commandLineArgs, greeting, and logger', () => {
-      const sut = new HashMap()
+    it('should be created with four properties: size, capacity, keys, values', () => {
+      const sut = new HashMap() // sut stands for sys under test
       expect(sut).to.have.property('size')
       expect(sut).to.have.property('capacity')
       expect(sut).to.have.property('keys')
