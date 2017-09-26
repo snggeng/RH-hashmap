@@ -1,5 +1,13 @@
 # KPCB Engineering Fellows Program
-Implementation of Fix-sized HashMap using RobinHood Hashing. When choosing between the existing methods of resolving hash collisions,
+Implementation of Fix-sized HashMap using RobinHood Hashing. When choosing between the existing methods of resolving hash collisions, a trade-off needs to be made between time and space complexity.
+
+There are two major types of implementations: one is chaining and the other is open addressing. Chaining is quite common in most standard libraries, where the collision is handled by appending items into a linked list headed by the bucket the key is mapped to. Open addressing uses a different mechanism to handle collision: the key (and value) is inserted to another bucket if the bucket it attempt to insert is already occupied.
+
+Open addressing has some clear advantages over chaining. First, it does not require extra memory allocation. This reduces memory allocation overhead and can possibly improve cpu caching. Moreover, in open addressing the developer has more control on memory layout – placing elements in buckets with certain order to make probing (search on alternative location for key) fast. Best of all, open addressing gives us better memory lower bound over chaining.
+
+For this implementation, I chose to use a variant of open-addressing that uses linear probing called RobinHood Hashing.
+
+Robin Hood hashing means that when you’re doing linear probing, you try to position every element such that it is as close as possible to its ideal position. You do this by moving objects around whenever you insert or erase an element, and the method for doing that is that you take from rich elements and give to poor elements. (hence the name Robin Hood hashing) A “rich” element is an element that received a slot close to its ideal insertion point. A “poor” element is one that’s far from its ideal insert point. When you insert a new element using linear probing you count how far you are from your ideal position. If you are further from your ideal position than the current element, you swap the new element with the existing element and try to find a new spot for the existing element. In this manner, we are always trying to reduce the variance between elements and so when the load factor increases, there is no drop in performance.
 
 ## Source Tree
 ```
