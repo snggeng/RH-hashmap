@@ -10,6 +10,7 @@
     "rules": {
       "semi": "off",
       "import/no-unresolved": "off",
-      "no-plusplus": "off"
+      "no-plusplus": "off",
+      "no-console": "off"
     }
 }

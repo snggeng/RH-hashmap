@@ -1,7 +1,7 @@
 {
   "name": "kpcb_challenge",
   "version": "1.0.0",
-  "description": "Hash Map Class Implementation for KPCB Challenge 2017",
+  "description": "Hash Map Class Implementation for KPCB Challenge 2017, © Geng Sng",
   "main": "hashMap.js",
   "directories": {
     "test": "test"

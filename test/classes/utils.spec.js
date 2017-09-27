@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import HashMap from '../../RH-HashMap'
-import { clearMap, processKey, incrementHash, swapElements } from '../../utils'
+import { clearMap, processKey } from '../../utils'
 
 /**
  * TESTS
