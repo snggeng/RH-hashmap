@@ -2,6 +2,10 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import HashMap from '../../RH-HashMap'
 
+const n = 10000
+const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
+const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
+
 /**
  * TESTS
  */
@@ -162,10 +166,7 @@ describe('HashMap', () => {
 
   describe('#swapElements()', () => {
     it('should recalculate delta if delta < 0', () => {
-      const n = 10000
       const h = new HashMap(n)
-      const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
-      const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
       for (let i = 0; i < n; i++) {
         const k = uuid.reduce((s, c, index) => c + s + uuid[Math.floor(index * Math.random(uuid.length - 1))], '')
         h.set((k).toString(), arr[Math.floor(Math.random() * 4)])
@@ -173,23 +174,18 @@ describe('HashMap', () => {
       const keys = h.keys.filter(e => e !== null)
       const key1 = keys[10]
       const key2 = keys[0]
-      console.log('key ', key1, key2)
       const currentIndex = h.keys.indexOf(key1)
       const newIndex = h.keys.indexOf(key2)
       const newProbeLength = Math.floor(Math.random() * 10)
       const delta = (h.size - currentIndex) + newIndex
       const sut = h.keys[currentIndex][1]
-      console.log(`sut: ${sut}, delta: ${delta}`)
       h.swapElements(currentIndex, newIndex, newProbeLength)
       const sut2 = h.keys[currentIndex][1]
-      console.log(sut2)
+      // delta has changed from sut to sut2
       expect(sut2).to.be.equal(sut + delta)
     })
     it('should swap keys based on new delta', () => {
-      const n = 10000
       const h = new HashMap(n)
-      const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
-      const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
       for (let i = 0; i < n; i++) {
         const k = uuid.reduce((s, c, index) => c + s + uuid[Math.floor(index * Math.random(uuid.length - 1))], '')
         h.set((k).toString(), arr[Math.floor(Math.random() * 4)])
@@ -197,20 +193,18 @@ describe('HashMap', () => {
       const keys = h.keys.filter(e => e !== null)
       const key1 = keys[0] // smaller index
       const key2 = keys[10]
-      console.log(`key: ${key1}`)
       const currentIndex = h.keys.indexOf(key1)
       const newIndex = h.keys.indexOf(key2)
       const newProbeLength = Math.floor(Math.random() * 10)
       const sut = h.keys[currentIndex]
       h.swapElements(currentIndex, newIndex, newProbeLength)
       const sut2 = h.keys[currentIndex]
+      // index of keys have changed after swapping
       expect(sut2).to.not.be.equal(sut)
     })
     it('should be called if elemToSwapFound is true', () => {
       const spy = sinon.spy(HashMap.prototype, 'swapElements')
-      const n = 10000
       const h = new HashMap(n)
-      const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
       for (let i = 0; i < n; i++) {
         const k = uuid.reduce((s, c, index) => c + s + uuid[Math.floor(index * Math.random(uuid.length - 1))], '')
         h.set((k).toString(), 'value')
