@@ -2,6 +2,9 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import HashMap from '../../RH-HashMap'
 
+/**
+ * CONSTANTS
+ */
 const n = 10000
 const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
 const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
@@ -9,19 +12,27 @@ const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
 /**
  * TESTS
  */
-
 describe('HashMap', () => {
   describe('Constructor', () => {
     it('should be created with four properties: size, capacity, keys, values', () => {
       const sut = new HashMap(1) // sut stands for sys under test
+      const sut2 = () => new HashMap() // missing arg when initializing
+      const sut3 = () => new HashMap('one') // wrong type: arg must be Number
       expect(sut).to.have.property('size')
       expect(sut).to.have.property('capacity')
       expect(sut).to.have.property('keys')
       expect(sut).to.have.property('values')
+      expect(sut2).to.throw(Error)
+      expect(sut3).to.throw(TypeError)
     })
   })
 
   describe('#set()', () => {
+    it('should throw Error if less than 2 args are given on invocation', () => {
+      const h = new HashMap(10)
+      const sut = () => h.set(10) // only 1 arg
+      expect(sut).to.throw(Error)
+    })
     it('should return false when arg k is not of type String', () => {
       const h = new HashMap(10)
       const sut = h.set({ new: 'message' }, 'value') // wrong value
