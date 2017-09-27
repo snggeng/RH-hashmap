@@ -1,4 +1,4 @@
-import { clearMap, processKey, incrementHash, swapElements } from './utils'
+import { clearMap, processKey, incrementHash } from './utils'
 
 export default class HashMap {
   constructor(size) {
@@ -45,7 +45,7 @@ export default class HashMap {
         // Swap if elemToSwap is found
         if (elemToSwapFound) {
           // console.log('element to swap found')
-          swapElements(elemToSwap, hashIndex, newProbeLength, this)
+          this.swapElements(elemToSwap, hashIndex, newProbeLength)
         }
         return true
       // Key already exists, update
@@ -55,10 +55,7 @@ export default class HashMap {
       // Hash index is occupied - start linear probing
       } else if (elemToSwapFound === false && this.keys[hashIndex][1] < probeLength) {
         // If existing element's probe length is lower, track length for swapping
-        // console.log('begin linear probing')
-        elemToSwap = hashIndex
-        elemToSwapFound = true
-        newProbeLength = probeLength
+        [elemToSwap, elemToSwapFound, newProbeLength] = [hashIndex, true, probeLength]
       } else {
         // Increment index and try again
         hashIndex = incrementHash(hashIndex, this)
@@ -102,5 +99,23 @@ export default class HashMap {
      */
     clearMap(this)
     this.capacity = 0
+  }
+
+  // Swap "Rich" and "Poor" slots to decrease variance
+  swapElements(currentIndex, newIndex, newProbeLength) {
+    // Calculate the new probe length for existing element
+    let delta = newIndex - currentIndex
+    // console.log('new delta ', delta)
+    if (delta < 0) { delta = (this.size - currentIndex) + newIndex }
+    // Update probes
+    this.keys[currentIndex] = [this.keys[currentIndex][0], this.keys[currentIndex][1] + delta]
+    this.keys[newIndex] = [this.keys[newIndex][0], newProbeLength]
+    let a = this.keys[currentIndex][0]
+    let b = this.keys[newIndex][0]
+    let c = this.values[currentIndex]
+    let d = this.values[newIndex];
+    // Swap Elements
+    [a, b] = [b, a];
+    [c, d] = [d, c];
   }
 }

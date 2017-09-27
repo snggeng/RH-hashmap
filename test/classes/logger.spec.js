@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import Logger from '../../logger'
 
-const TestString = '    ✓' // nice hack to keep the mocha report clean. LOL.
+const TestString = '    ✓' // nice hack to keep the mocha report clean.
 
 describe('Logger', () => {
   it('should log a message to the console', () => {

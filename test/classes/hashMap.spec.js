@@ -1,9 +1,11 @@
 import { expect } from 'chai'
+import sinon from 'sinon'
 import HashMap from '../../RH-HashMap'
 
 /**
  * TESTS
  */
+
 describe('HashMap', () => {
   describe('Constructor', () => {
     it('should be created with four properties: size, capacity, keys, values', () => {
@@ -65,18 +67,23 @@ describe('HashMap', () => {
       expect(sut).to.equal('even newer message')
     })
 
-    it('should increment hash if a key exists', () => {
+    it('should be called', () => {
+      const spy = sinon.spy(HashMap.prototype, 'set')
       const h = new HashMap(10)
-      const val = 'message'
-      h.set('k0', val)
-      h.set('k1', val)
-      h.set('k1', val)
-      h.set('k1', 'hi')
-      const v = h.get('k1')
-      const sut = h.keys
-      console.log(sut)
-      console.log(v)
-      expect(sut).to.equal('even newer message')
+      h.set('key', 'value')
+      expect(spy.called).to.equal(true)
+      spy.restore()
+    })
+    it('should swap elements if elemToSwapFound', () => {
+      // const spy = sinon.spy(HashMap.prototype.set, 'swapElements')
+      const mock = sinon.mock(HashMap.prototype)
+      const expectation = mock.expects('set').atLeast(2)
+      const h = new HashMap(10)
+      h.set('key', 'value')
+      h.set('key', 'value')
+      h.set('key', 'value')
+      expectation.verify()
+      mock.restore()
     })
   })
 
@@ -140,7 +147,7 @@ describe('HashMap', () => {
     })
   })
 
-  describe('#getter length', () => {
+  describe('#.length', () => {
     it('should return a number', () => {
       const h = new HashMap(4)
       const sut = h.length
@@ -150,6 +157,39 @@ describe('HashMap', () => {
       const h = new HashMap(4)
       const sut = h.length
       expect(sut).to.equal(4)
+    })
+  })
+
+  describe('#swapElements()', () => {
+    it('should swap keys based on new delta', () => {
+      const n = 10000
+      const h = new HashMap(n)
+      const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
+      const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
+      for (let i = 0; i < n; i++) {
+        const k = uuid.reduce((s, c, index) => c + s + uuid[Math.floor(index * Math.random(uuid.length - 1))], '')
+        h.set((k).toString(), arr[Math.floor(Math.random() * 4)])
+      }
+      const key = h.keys.filter(e => e !== null && e[0][e[0].length - 1] === 'a')[0]
+      const currentIndex = h.keys.indexOf(key)
+      const newIndex = currentIndex + 1
+      const newProbeLength = Math.floor(Math.random() * 10)
+      const sut = h.keys[currentIndex]
+      h.swapElements(currentIndex, newIndex, newProbeLength)
+      const sut2 = h.keys[currentIndex]
+      expect(sut2).to.not.be.equal(sut)
+    })
+    it('should be called if elemToSwapFound is true', () => {
+      const spy = sinon.spy(HashMap.prototype, 'swapElements')
+      const n = 10000
+      const h = new HashMap(n)
+      const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
+      for (let i = 0; i < n; i++) {
+        const k = uuid.reduce((s, c, index) => c + s + uuid[Math.floor(index * Math.random(uuid.length - 1))], '')
+        h.set((k).toString(), 'value')
+      }
+      expect(spy.called).to.equal(true)
+      spy.restore()
     })
   })
 })

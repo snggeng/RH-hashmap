@@ -9,6 +9,7 @@
     "plugins": ["import"],
     "rules": {
       "semi": "off",
-      "import/no-unresolved": "off"
+      "import/no-unresolved": "off",
+      "no-plusplus": "off"
     }
 }
