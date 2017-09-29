@@ -72,10 +72,14 @@ export default class HashMap {
      * @param {string} k - key in hashMap
      * @return {string} value on success or null if key has no value
      */
+    // Check if k is of type String
     if (typeof (k) !== 'string') return null
+    // Get key and hashIndex
     const key = processKey(k, this)[0]
     let hashIndex = processKey(k, this)[1]
+    // Get value from key
     for (let i = 0; i < this.size; i += 1) {
+      // Index exists
       if (this.keys[hashIndex] !== null && this.keys[hashIndex][0] === key) {
         return this.values[hashIndex]
       }
@@ -91,6 +95,35 @@ export default class HashMap {
      * @return {Number} float - load factor
      */
     return parseFloat(this.capacity) / parseFloat(this.size)
+  }
+
+  delete(k) {
+    /**
+     * Delete a key/value pair in map
+     * @param {string} k - key in hashMap
+     * @return {string} value on success or null if key has no value
+     */
+    // Check if k is of type String
+    if (typeof (k) !== 'string') return null
+    // Check if Map is empty
+    if (!this.load()) return null
+    // Get key and hashIndex
+    const key = processKey(k, this)[0]
+    let hashIndex = processKey(k, this)[1]
+    // Delete key/value pair
+    for (let i = 0; i < this.size; i += 1) {
+      // Key matches, set it to null and return value
+      if (this.keys[hashIndex] && this.keys[hashIndex][0] === key) {
+        const value = this.values[hashIndex]
+        this.keys[hashIndex] = null
+        this.values[hashIndex] = null
+        this.capacity -= 1
+        return value
+      }
+      // Index is null or keys don't match - linear probing
+      hashIndex = incrementHash(hashIndex, this)
+    }
+    return null
   }
 
   clear() {

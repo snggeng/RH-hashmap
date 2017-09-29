@@ -137,6 +137,41 @@ describe('HashMap', () => {
     })
   })
 
+  describe('#delete()', () => {
+    it('should return null when arg k is not of type String', () => {
+      const h = new HashMap(10)
+      h.set('key', { new: 'message' })
+      let sut = h.delete(10) // arg k is a Number
+      expect(sut).to.equal(null)
+      sut = h.delete({ hello: 'friend' }) // when arg k is Object
+      expect(sut).to.equal(null)
+    })
+    it('should return the value on successful retrieval of key', () => {
+      const h = new HashMap(4)
+      h.set('k0', 1)
+      let sut = h.delete('k0')
+      expect(sut).to.equal(1)
+      h.set('k1', 2)
+      sut = h.delete('k1')
+      expect(sut).to.equal(2)
+      h.set('k1', 3)
+      sut = h.delete('k1')
+      expect(sut).to.equal(3)
+      h.set('k2', 4)
+      sut = h.delete('k2')
+      expect(sut).to.equal(4)
+    })
+    it('should return null of unsuccessful retrieval of key', () => {
+      const h = new HashMap(4)
+      h.set('k0', 1)
+      let sut = h.delete('k1')
+      expect(sut).to.equal(null)
+      h.set('k1', 1000)
+      sut = h.delete('k2')
+      expect(sut).to.equal(null)
+    })
+  })
+
   describe('#load()', () => {
     it('should return a float', () => {
       const h = new HashMap(4)
