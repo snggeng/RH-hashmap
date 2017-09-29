@@ -5,7 +5,7 @@
 * School: Duke University
 * Github: [@snggeng](https://github.com/snggeng)
 * Website: [geng.io](https://geng.io)
-* Resume: [Click here](https://geng.io/Geng-Sng-Resume)
+* Resume: [Click here](https://geng.io/Geng-Sng-Resume.pdf)
 
 ## Explanation of Choice of HashMap Implementation
 This project is an implementation of a Fix-sized HashMap using RobinHood Hashing. When choosing between the existing methods of resolving hash collisions, a trade-off needs to be made between time and space complexity.
@@ -410,7 +410,7 @@ ES6 : Median space 92.3000 MB
 │       └── utils.spec.js
 └── utils.js
 ```
-## KPCB Engineering Fellows Challenge Details 
+## KPCB Engineering Fellows Challenge Details
 ### Problem
 Using only primitive types, implement a fixed-size hash map that associates string keys with arbitrary data object references (you don't need to copy the object). Your data structure should be optimized for algorithmic runtime and memory usage. You should not import any external libraries, and may not use primitive hash map or dictionary types in languages like Python or Ruby.
 
