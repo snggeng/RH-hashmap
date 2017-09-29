@@ -15,7 +15,7 @@ export default class NaiveHashMap {
     if (loadRatio > this.MAX_LOAD_RATIO) {
       this.resize(this.capacity * this.SIZE_RATIO)
     }
-    const index = this.get(key)
+    const index = this.findSlot(key)
     this.slots[index] = {
       key,
       value,
@@ -29,41 +29,50 @@ export default class NaiveHashMap {
   }
 
   get(key) {
-    const hash = hashCode(key)
-    const start = hash % this.capacity
-    for (let i = start; i < start + this.capacity; i++) {
-      const index = i % this.capacity
-      const slot = this.slots[index]
-      if (slot === undefined || (slot.key === key && !slot.deleted)) {
-        return index
-      }
+    const index = this.findSlot(key)
+    if (index === undefined) {
+      throw new Error('key error')
     }
-    return null
+    return this.slots[index].value
   }
 
   resize(size) {
     const oldSlots = this.slots
     this.capacity = size
-
     this.length = 0
     this.deleted = 0
     this.slots = []
     for (let i = 0; i < oldSlots.length; i++) {
       const slot = oldSlots[i]
-      if (slot !== undefined && !slot.deleted) {
+      if (slot !== undefined) {
         this.set(slot.key, slot.value)
       }
     }
   }
 
-  remove(key) {
-    const index = this.get(key)
+  delete(key) {
+    const index = this.findSlot(key)
     const slot = this.slots[index]
     if (slot === undefined) {
-      throw new Error('Key Error')
+      throw new Error('key error: not found')
     }
-    slot.deleted = true
+    slot.deleted = true // soft delete
     this.length--
     this.deleted++
+  }
+
+  findSlot(key) {
+    const hash = hashCode(key)
+    const start = hash % this.capacity
+    for (let i = start; i < start + this.capacity; i += 1) {
+      const index = i % this.capacity
+      const slot = this.slots[index]
+      if (slot === undefined) {
+        continue
+      } else if ((slot.key === key && !slot.deleted)) {
+        return index
+      }
+    }
+    return null
   }
 }

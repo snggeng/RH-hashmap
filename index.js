@@ -19,10 +19,11 @@ const runSet = (name, m, n, time, space) => {
   space.push(Math.round(used * 100) / 100)
 }
 
-const runGet = (name, m, n, time, space) => {
+const run = (func, name, m, n, time, space) => {
   // const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
+  // Check that run() initialized using method
   const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
-
+  const methodToCall = func === 'get' ? k => m.get(k) : k => m.delete(k)
   // Set Map
   for (let i = 0; i < n; i++) {
     const k = `avjsdadkjhdjsadjksakd${i}`
@@ -32,7 +33,7 @@ const runGet = (name, m, n, time, space) => {
   const t0 = new Date().getTime()
   // Get map
   const k = `avjsdadkjhdjsadjksakd${Math.floor(Math.random() * n)}`
-  m.get(k)
+  methodToCall(k)
   const t1 = new Date().getTime()
   console.timeEnd(`${name}`)
   time.push(t1 - t0)
@@ -100,15 +101,20 @@ const testSetMethod = (n) => {
   // })
 }
 
-// testGet
-const testGetMethod = (n) => {
+const testMethod = (method, n) => {
   let time = []
   let space = []
+  let func = ''
+  if (method === 'get') {
+    func = 'get'
+  } else if (method === 'delete') {
+    func = 'delete'
+  }
   // RH Map
   console.log('************ BEGIN RH **************')
   const h1 = new HashMap(n)
   for (let i = 0; i < n; i++) {
-    runGet(`RobinHood HashMap ${i}`, h1, n, time, space)
+    run(func, `RobinHood HashMap ${i}`, h1, n, time, space)
   }
   console.log('RH : Average time', average(time).toFixed(4), 'milliseconds')
   console.log('RH : Average space', average(space).toFixed(4), 'MB')
@@ -122,7 +128,7 @@ const testGetMethod = (n) => {
   console.log('************ BEGIN NAIVE **************')
   const h2 = new NaiveHashMap(n)
   for (let i = 0; i < n; i++) {
-    runGet(`Naive HashMap ${i}`, h2, n, time, space)
+    run(func, `Naive HashMap ${i}`, h2, n, time, space)
   }
   console.log('Naive : Average time', average(time).toFixed(4), 'milliseconds')
   console.log('Naive : Average space', average(space).toFixed(4), 'MB')
@@ -136,7 +142,7 @@ const testGetMethod = (n) => {
   console.log('************ BEGIN ES6 **************')
   const h3 = new Map()
   for (let i = 0; i < n; i++) {
-    runGet(`ES6 HashMap ${i}`, h3, n, time, space)
+    run(func, `ES6 HashMap ${i}`, h3, n, time, space)
   }
   console.log('ES6 : Average time', average(time).toFixed(4), 'milliseconds')
   console.log('ES6 : Average space', average(space).toFixed(4), 'MB')
@@ -146,12 +152,14 @@ const testGetMethod = (n) => {
 }
 
 // Run tests using inputs from command line
-process.argv.forEach((param, position) => {
-  if (param === 'set') {
-    console.log(`initializing set() test for hashmap of size ${process.argv[position + 1]}\n`)
-    testSetMethod(parseInt(process.argv[position + 1], 10))
-  } else if (param === 'get') {
-    console.log(`initializing get() test for hashmap of size ${process.argv[position + 1]}\n`)
-    testGetMethod(parseInt(process.argv[position + 1], 10))
-  }
-})
+const param = process.argv[2]
+const num = process.argv[3]
+if (param === 'set') {
+  console.log(`initializing set() test for hashmap of size ${process.argv[num]}\n`)
+  testSetMethod(parseInt(num, 10))
+} else if (param === 'get' || param === 'delete') {
+  console.log(`initializing ${param}() test for hashmap of size ${process.argv[num]}\n`)
+  testMethod(param, parseInt(num, 10))
+} else {
+  console.log('Invalid input: the valid methods are -- set, get, delete\n\nTry running:\nnpm start get 1000')
+}
