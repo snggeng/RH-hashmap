@@ -35,16 +35,16 @@ In order to run the files, you'll need to have `Node.js` and `npm` installed on 
 
 Alternatively, you may use package managers like `brew` or `macPorts` (macOS), or the equivalent based on your machine by following the instructions [here](https://nodejs.org/en/download/package-manager/#macos). `npm` comes with `Node.js` so simply run the following commands to see if you have installed them correctly.
 
-To check if you have Node.js installed, run this command in your terminal:
+To check if you have `Node.js` installed, run this command in your terminal:
 ```
 node -v
 ```
-To confirm that you have npm installed you can run this command in your terminal:
+To confirm that you have `npm` installed you can run this command in your terminal:
 ```
 npm -v  
 ```
 
-If you have an old version of npm (version < 5.0.0) or node (version < 8.0.0) it is recommended that you update npm using the following commands:
+If you have an old version of `npm` (version < 5.0.0) or `Node.js` (version < 8.0.0) it is recommended that you update `npm` using the following commands:
 ```
 npm install npm@latest -g
 ```
