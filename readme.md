@@ -1,16 +1,33 @@
 # KPCB Engineering Fellows Program
-Implementation of Fix-sized HashMap using RobinHood Hashing. When choosing between the existing methods of resolving hash collisions, a trade-off needs to be made between time and space complexity.
 
-There are two major types of implementations: one is chaining and the other is open addressing. Chaining is quite common in most standard libraries, where the collision is handled by appending items into a linked list headed by the bucket the key is mapped to. Open addressing uses a different mechanism to handle collision: the key (and value) is inserted to another bucket if the bucket it attempt to insert is already occupied.
+## Applicant Information
+* Name: Geng Sng
+* School: Duke University
+* Github: [@snggeng](https://github.com/snggeng)
+* Website: [geng.io](https://geng.io)
+* Resume: [Click here](https://geng.io/Geng-Sng-Resume)
+
+## Explanation of Choice of HashMap Implementation
+This project is an implementation of a Fix-sized HashMap using RobinHood Hashing. When choosing between the existing methods of resolving hash collisions, a trade-off needs to be made between time and space complexity.
+
+There are two major types of implementations: one is chaining and the other is open addressing.
+* **Chaining** is quite common in most standard libraries, where the collision is handled by appending items into a linked list headed by the bucket the key is mapped to.
+* **Open addressing** uses a different mechanism to handle collision: the key (and value) is inserted to another bucket if the bucket it attempt to insert is already occupied.
 
 Open addressing has some clear advantages over chaining. First, it does not require extra memory allocation. This reduces memory allocation overhead and can possibly improve cpu caching. Moreover, in open addressing the developer has more control on memory layout – placing elements in buckets with certain order to make probing (search on alternative location for key) fast. Best of all, open addressing gives us better memory lower bound over chaining.
 
-For this implementation, I chose to use a variant of open-addressing that uses linear probing called RobinHood Hashing.
+For this implementation, I chose to use a variant of open-addressing that uses **linear probing** called **_RobinHood Hashing_**.
 
-Robin Hood hashing means that when you’re doing linear probing, you try to position every element such that it is as close as possible to its ideal position. You do this by moving objects around whenever you insert or erase an element, and the method for doing that is that you take from rich elements and give to poor elements. (hence the name Robin Hood hashing) A “rich” element is an element that received a slot close to its ideal insertion point. A “poor” element is one that’s far from its ideal insert point. When you insert a new element using linear probing you count how far you are from your ideal position. If you are further from your ideal position than the current element, you swap the new element with the existing element and try to find a new spot for the existing element. In this manner, we are always trying to reduce the variance between elements and so when the load factor increases, there is no drop in performance.
+RobinHood hashing means that when you’re doing linear probing, you try to position every element such that it is as close as possible to its ideal position. You do this by moving objects around whenever you insert or erase an element, and the method for doing that is that you take from rich elements and give to poor elements. (hence the name Robin Hood hashing)
+
+A “rich” element is an element that received a slot close to its ideal insertion point. A “poor” element is one that’s far from its ideal insert point. When you insert a new element using linear probing you count how far you are from your ideal position. If you are further from your ideal position than the current element, you swap the new element with the existing element and try to find a new spot for the existing element. In this manner, we are always trying to reduce the variance between elements and so when the load factor increases, there is no drop in performance.
+
+## References
+* https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
+* https://probablydance.com/2017/02/26/i-wrote-the-fastest-hashtable/
 
 ## Commands
-The following files run on `Node` and use `babel-node` to configure ES6 `import` and `export`. In order to run the files, you'll need to have `Node.js` and `npm` installed on your machine. If you don't have them, the easiest way to install them is using the installer you can find [here](https://nodejs.org/en/download/). Alternatively, you may use package managers like `brew` or `macPorts` (macOS), or the equivalent based on your machine by following the instructions [here](https://nodejs.org/en/download/package-manager/#macos). 'npm' comes with `Node.js` so simply run the following commands to see if you have installed them correctly.
+The following files run on `Node` and use `babel-node` to configure ES6 `import` and `export`. In order to run the files, you'll need to have `Node.js` and `npm` installed on your machine. If you don't have them, the easiest way to install them is using the installer you can find [here](https://nodejs.org/en/download/). Alternatively, you may use package managers like `brew` or `macPorts` (macOS), or the equivalent based on your machine by following the instructions [here](https://nodejs.org/en/download/package-manager/#macos). `npm` comes with `Node.js` so simply run the following commands to see if you have installed them correctly.
 
 To check if you have Node.js installed, run this command in your terminal:
 ```
@@ -26,6 +43,16 @@ If you have an old version of npm (version < 5.0.0) or node (version < 8.0.0) it
 npm install npm@latest -g
 ```
 
+You will also need to install the `babel-cli` in order to run `Babel`:
+```
+npm install -g babel-cli
+```
+
+### Testing
+Change directory into the root directory of this project and run:
+```
+npm install
+```
 To run the test suite:
 ```
 npm test
@@ -35,10 +62,6 @@ To run the tests for performance:
 npm start <method> <size of map>
 ```
 For example, `npm start set 10000` would initialize a new map with fixed-size `n = 10000` and test the `set()` method using this map. Similarly, `npm start get 10` would initialize a new map with fixed-size `n = 10` and test the `get()` method using this map.
-
-## References
-* https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
-* https://probablydance.com/2017/02/26/i-wrote-the-fastest-hashtable/
 
 ## Performance Testing Guidelines
 For hashing when the size of the map is small and there are none or close to none collisions, the RobinHood HashMap will perform poorly as compared to HashMaps in standard libraries that use sequence chaining. This is by design. However, when the size of the map is big and there are many collisions, the RobinHood HashMap is roughly equal in terms of time as compared to standard library implementations using sequence chaining, but magnitudes more efficient in terms of space.
@@ -387,8 +410,8 @@ ES6 : Median space 92.3000 MB
 │       └── utils.spec.js
 └── utils.js
 ```
-
-## Problem
+## KPCB Engineering Fellows Challenge Details 
+### Problem
 Using only primitive types, implement a fixed-size hash map that associates string keys with arbitrary data object references (you don't need to copy the object). Your data structure should be optimized for algorithmic runtime and memory usage. You should not import any external libraries, and may not use primitive hash map or dictionary types in languages like Python or Ruby.
 
 The solution should be delivered in one class (or your language's equivalent) that provides the following functions:
@@ -404,5 +427,5 @@ delete(key): delete the value associated with the given key, returning the value
 
 If your language provides a built-in hashing function for strings (ex. `hashCode` in Java or `__hash__` in Python) you are welcome to use that. If not, you are welcome to do something naive, or use something you find online with proper attribution.
 
-## Instructions
+### Instructions
 Please provide the source, tests, runnable command-line function and all the resources required to compile (if necessary) and run the following program. You are free to use any coding language that compiles/runs on *nix operating systems and requires no licensed software.
