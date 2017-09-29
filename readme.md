@@ -70,9 +70,9 @@ npm start <method> <size of map>
 For example, `npm start set 10000` would initialize a new map with fixed-size `n = 10000` and test the `set()` method using this map. Similarly, `npm start get 10` would initialize a new map with fixed-size `n = 10` and test the `get()` method using this map.
 
 ## Performance Testing Guidelines
-For hashing when the size of the map is small and there are none or close to none collisions, the RobinHood HashMap will perform poorly as compared to HashMaps in standard libraries that use sequence chaining. This is by design. However, when the size of the map is big and there are many collisions, the RobinHood HashMap is roughly equal in terms of time as compared to standard library implementations using sequence chaining, but magnitudes more efficient in terms of space.
+For hashing when the size of the map is small and there are none or close to no collisions, the RobinHood HashMap will perform slightly poorly (in runtime) as compared to HashMaps in standard libraries that use sequence chaining. This is by design. However, when the size of the map is big and there are many collisions, the RobinHood HashMap is roughly equal or faster in terms of time as compared to standard library implementations using sequence chaining, but magnitudes more efficient in terms of space.
 
-To test this, I used the default ES6 Map class available in Javascript (variant of sequence chaining) and a Naive implementation of a HashMap that implements open-addressing to benchmark my RobinHood HashMap (RH).
+To test this, I used the default ES6 Map class available in Javascript (variant of sequence chaining) and a Naive implementation of a HashMap that implements open-addressing (`OA-HashMap.js`) to benchmark my RobinHood HashMap (`RH-HashMap.js`).
 
 ## Analysis of runtimes
 
