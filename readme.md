@@ -71,48 +71,86 @@ ES6 : Median time 7462.0000 milliseconds
 ES6 : Median space 635.1200 MB
 ```
 
-When n = 10000000, test takes too long to run.
+When n = 5000000, test takes too long to run.
 ```
 ************ BEGIN RH **************
-RH : Average time 53208.0000 milliseconds
-RH : Average space 764.0000 MB
-RH : Median time 52057.0000 milliseconds
-RH : Median space 801.6400 MB
+RH : Average time 36663.0000 milliseconds
+RH : Average space 629.0000 MB
+RH : Median time 36834.0000 milliseconds
+RH : Median space 630.3400 MB
 
+
+************ BEGIN NAIVE **************
+Naive : Average time 52542.0000 milliseconds
+Naive : Average space 887.0000 MB
+Naive : Median time 53408.0000 milliseconds
+Naive : Median space 777.5800 MB
+
+
+************ BEGIN ES6 **************
+ES6 : Average time 2099865.0000 milliseconds
+ES6 : Average space 1067.0000 MB
+ES6 : Median time 2004915.0000 milliseconds
+ES6 : Median space 1067.5400 MB
 ```
 
 ### `get()` method
-Statistics
+The runtime of our get() method should be O(1) for all three maps. To test the performance of the same method across all three maps, we implement a similar map of same fixed-size n and retrieve a single key multiple times and get the average and median time taken for such an operation:
+When n = 1000, we obtain similar runtimes for all three maps.
+```
+************ BEGIN RH **************
+RH : Average time 1.0000 milliseconds
+RH : Average space 87.0000 MB
+RH : Median time 0.0000 milliseconds
+RH : Median space 86.5100 MB
+
+
+************ BEGIN NAIVE **************
+Naive : Average time 1.0000 milliseconds
+Naive : Average space 89.0000 MB
+Naive : Median time 0.0000 milliseconds
+Naive : Median space 88.4900 MB
+
+
+************ BEGIN ES6 **************
+ES6 : Average time 1.0000 milliseconds
+ES6 : Average space 93.0000 MB
+ES6 : Median time 0.0000 milliseconds
+ES6 : Median space 92.3000 MB
+```
 
 ### `load()` method
 Statistics
 
 ## Source Tree
 ```
+.
 ├── OA-HashMap.js
 ├── RH-HashMap.js
+├── coverage
+│   ├── coverage.json
+│   ├── lcov-report
+│   │   ├── base.css
+│   │   ├── index.html
+│   │   ├── prettify.css
+│   │   ├── prettify.js
+│   │   ├── sort-arrow-sprite.png
+│   │   ├── sorter.js
+│   │   └── test
+│   │       ├── hashMap.js.html
+│   │       └── index.html
+│   └── lcov.info
 ├── index.js
 ├── logger.js
 ├── package-lock.json
 ├── package.json
 ├── readme.md
-└── test
-    ├── classes
-    │   ├── hashMap.spec.js
-    │   └── logger.spec.js
-    └── coverage
-        ├── coverage.json
-        ├── lcov-report
-        │   ├── base.css
-        │   ├── index.html
-        │   ├── prettify.css
-        │   ├── prettify.js
-        │   ├── sort-arrow-sprite.png
-        │   ├── sorter.js
-        │   └── test
-        │       ├── hashMap.js.html
-        │       └── index.html
-        └── lcov.info
+├── test
+│   └── classes
+│       ├── hashMap.spec.js
+│       ├── logger.spec.js
+│       └── utils.spec.js
+└── utils.js
 ```
 ## Commands
 

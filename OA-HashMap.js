@@ -15,7 +15,7 @@ export default class NaiveHashMap {
     if (loadRatio > this.MAX_LOAD_RATIO) {
       this.resize(this.capacity * this.SIZE_RATIO)
     }
-    const index = this.findSlot(key)
+    const index = this.get(key)
     this.slots[index] = {
       key,
       value,
@@ -28,7 +28,7 @@ export default class NaiveHashMap {
     return this.capacity / this.slots
   }
 
-  findSlot(key) {
+  get(key) {
     const hash = hashCode(key)
     const start = hash % this.capacity
     for (let i = start; i < start + this.capacity; i++) {
@@ -57,7 +57,7 @@ export default class NaiveHashMap {
   }
 
   remove(key) {
-    const index = this.findSlot(key)
+    const index = this.get(key)
     const slot = this.slots[index]
     if (slot === undefined) {
       throw new Error('Key Error')
