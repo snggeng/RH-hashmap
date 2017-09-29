@@ -134,51 +134,111 @@ When n = 100000, the difference in time and space performance of the RH and the 
 
 ```
 ************ BEGIN RH **************
-RH : Average time 459.0000 milliseconds
-RH : Average space 141.0000 MB
-RH : Median time 462.0000 milliseconds
-RH : Median space 148.4300 MB
+RobinHood HashMap 0: 533.564ms
+RobinHood HashMap 1: 410.008ms
+RobinHood HashMap 2: 610.184ms
+RobinHood HashMap 3: 481.880ms
+RobinHood HashMap 4: 385.202ms
+RobinHood HashMap 5: 379.363ms
+RobinHood HashMap 6: 416.786ms
+RobinHood HashMap 7: 618.539ms
+RobinHood HashMap 8: 423.095ms
+RobinHood HashMap 9: 497.722ms
+RH : Average time 476.0000 milliseconds
+RH : Average space 144.0000 MB
+RH : Median time 482.0000 milliseconds
+RH : Median space 220.1200 MB
 
 
 ************ BEGIN NAIVE **************
-Naive : Average time 464.0000 milliseconds
-Naive : Average space 183.0000 MB
-Naive : Median time 370.0000 milliseconds
-Naive : Median space 210.4900 MB
+Naive HashMap 0: 595.133ms
+Naive HashMap 1: 375.301ms
+Naive HashMap 2: 385.356ms
+Naive HashMap 3: 380.782ms
+Naive HashMap 4: 507.698ms
+Naive HashMap 5: 501.490ms
+Naive HashMap 6: 585.276ms
+Naive HashMap 7: 408.430ms
+Naive HashMap 8: 428.339ms
+Naive HashMap 9: 441.085ms
+Naive : Average time 461.0000 milliseconds
+Naive : Average space 156.0000 MB
+Naive : Median time 441.0000 milliseconds
+Naive : Median space 170.0200 MB
 
 
 ************ BEGIN ES6 **************
-ES6 : Average time 497.0000 milliseconds
-ES6 : Average space 227.0000 MB
-ES6 : Median time 413.0000 milliseconds
-ES6 : Median space 255.6900 MB
+ES6 HashMap 0: 474.615ms
+ES6 HashMap 1: 859.963ms
+ES6 HashMap 2: 579.111ms
+ES6 HashMap 3: 478.910ms
+ES6 HashMap 4: 439.805ms
+ES6 HashMap 5: 453.571ms
+ES6 HashMap 6: 708.367ms
+ES6 HashMap 7: 447.127ms
+ES6 HashMap 8: 480.361ms
+ES6 HashMap 9: 709.389ms
+ES6 : Average time 564.0000 milliseconds
+ES6 : Average space 256.0000 MB
+ES6 : Median time 480.0000 milliseconds
+ES6 : Median space 276.2100 MB
 
 ```
 
 When n = 1000000, the average time used by all 3 maps is roughly equal, but the average space used by RH is more than half of the ES6 Map, and significantly more time efficient than the Naive Map which although implements open-addressing, does not insert elements into buckets as efficiently as RH. (RH swaps elements to decrease variance each time)
 ```
 ************ BEGIN RH **************
-RH : Average time 4488.0000 milliseconds
-RH : Average space 345.0000 MB
-RH : Median time 4503.0000 milliseconds
-RH : Median space 258.4600 MB
+RobinHood HashMap 0: 4469.948ms
+RobinHood HashMap 1: 3861.910ms
+RobinHood HashMap 2: 4237.058ms
+RobinHood HashMap 3: 4103.165ms
+RobinHood HashMap 4: 4480.690ms
+RobinHood HashMap 5: 6624.700ms
+RobinHood HashMap 6: 6439.832ms
+RobinHood HashMap 7: 4984.401ms
+RobinHood HashMap 8: 6199.978ms
+RobinHood HashMap 9: 6101.162ms
+RH : Average time 5151.0000 milliseconds
+RH : Average space 328.0000 MB
+RH : Median time 4985.0000 milliseconds
+RH : Median space 251.1500 MB
 
 
 ************ BEGIN NAIVE **************
-Naive : Average time 5110.0000 milliseconds
-Naive : Average space 521.0000 MB
-Naive : Median time 5284.0000 milliseconds
-Naive : Median space 499.7900 MB
+Naive HashMap 0: 4244.050ms
+Naive HashMap 1: 5792.711ms
+Naive HashMap 2: 5025.169ms
+Naive HashMap 3: 3863.854ms
+Naive HashMap 4: 5959.137ms
+Naive HashMap 5: 4258.996ms
+Naive HashMap 6: 6718.531ms
+Naive HashMap 7: 6737.461ms
+Naive HashMap 8: 8060.752ms
+Naive HashMap 9: 4705.600ms
+Naive : Average time 5538.0000 milliseconds
+Naive : Average space 538.0000 MB
+Naive : Median time 5794.0000 milliseconds
+Naive : Median space 665.4800 MB
 
 
 ************ BEGIN ES6 **************
-ES6 : Average time 7717.0000 milliseconds
-ES6 : Average space 733.0000 MB
-ES6 : Median time 7462.0000 milliseconds
-ES6 : Median space 635.1200 MB
+ES6 HashMap 0: 8251.865ms
+ES6 HashMap 1: 6151.530ms
+ES6 HashMap 2: 6935.039ms
+ES6 HashMap 3: 5706.742ms
+ES6 HashMap 4: 8217.268ms
+ES6 HashMap 5: 7069.695ms
+ES6 HashMap 6: 7678.359ms
+ES6 HashMap 7: 9714.827ms
+ES6 HashMap 8: 6306.227ms
+ES6 HashMap 9: 5979.348ms
+ES6 : Average time 7202.0000 milliseconds
+ES6 : Average space 728.0000 MB
+ES6 : Median time 7070.0000 milliseconds
+ES6 : Median space 633.6400 MB
 ```
 
-When n = 5000000, test takes too long to run.
+When n = 5000000, RH HashMap is clearly much more performant than the other two.
 ```
 ************ BEGIN RH **************
 RH : Average time 36663.0000 milliseconds

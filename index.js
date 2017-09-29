@@ -49,7 +49,7 @@ const median = (sequence) => {
 const average = sequence => Math.ceil(sequence.reduce((a, b) => a + b) / sequence.length)
 
 const testSetMethod = () => {
-  const n = 100000 // size of map
+  const n = 1000000 // size of map
   let time = []
   let space = []
 
