@@ -386,6 +386,84 @@ ES6 : Median time 0.0000 milliseconds
 ES6 : Median space 92.3000 MB
 ```
 
+### `delete()` method
+Similar to `get()` runtime of our `delete()` method should be O(1) for all three maps.
+
+When n = 10, we obtain similar runtimes for all three maps:
+When n = 10,
+```
+************ BEGIN RH **************
+RobinHood HashMap 0: 0.224ms
+RobinHood HashMap 1: 0.040ms
+RobinHood HashMap 2: 0.029ms
+RobinHood HashMap 3: 0.029ms
+RobinHood HashMap 4: 0.023ms
+RobinHood HashMap 5: 0.014ms
+RobinHood HashMap 6: 0.012ms
+RobinHood HashMap 7: 0.016ms
+RobinHood HashMap 8: 0.010ms
+RobinHood HashMap 9: 0.015ms
+RH : Average time 0.0000 milliseconds
+RH : Average space 74.0000 MB
+RH : Median time 0.0000 milliseconds
+RH : Median space 73.1200 MB
+
+
+************ BEGIN NAIVE **************
+Naive HashMap 0: 0.074ms
+Naive HashMap 1: 0.032ms
+Naive HashMap 2: 0.022ms
+Naive HashMap 3: 0.037ms
+Naive HashMap 4: 0.036ms
+Naive HashMap 5: 0.039ms
+Naive HashMap 6: 0.036ms
+Naive HashMap 7: 0.038ms
+Naive HashMap 8: 0.037ms
+Naive HashMap 9: 0.038ms
+Naive : Average time 0.0000 milliseconds
+Naive : Average space 74.0000 MB
+Naive : Median time 0.0000 milliseconds
+Naive : Median space 73.5000 MB
+
+
+************ BEGIN ES6 **************
+ES6 HashMap 0: 0.013ms
+ES6 HashMap 1: 0.007ms
+ES6 HashMap 2: 0.006ms
+ES6 HashMap 3: 0.008ms
+ES6 HashMap 4: 0.006ms
+ES6 HashMap 5: 0.004ms
+ES6 HashMap 6: 0.008ms
+ES6 HashMap 7: 0.382ms
+ES6 HashMap 8: 0.009ms
+ES6 HashMap 9: 0.113ms
+ES6 : Average time 0.0000 milliseconds
+ES6 : Average space 74.0000 MB
+ES6 : Median time 0.0000 milliseconds
+ES6 : Median space 73.8400 MB
+```
+
+When n = 100, RH matches ES6 while Naive falls behind, due to the naive manner open-addressing was implemented resulting in a longer linear probing process to delete. However this is negligible since RH is the map we want to test for performance.
+```
+************ BEGIN RH **************
+RH : Average time 1.0000 milliseconds
+RH : Average space 77.0000 MB
+RH : Median time 0.0000 milliseconds
+RH : Median space 76.4000 MB
+
+************ BEGIN NAIVE **************
+Naive : Average time 3.0000 milliseconds
+Naive : Average space 99.0000 MB
+Naive : Median time 2.0000 milliseconds
+Naive : Median space 38.3000 MB
+
+************ BEGIN ES6 **************
+ES6 : Average time 1.0000 milliseconds
+ES6 : Average space 61.0000 MB
+ES6 : Median time 0.0000 milliseconds
+ES6 : Median space 60.7300 MB
+```
+
 ## Source Tree
 ```
 .
