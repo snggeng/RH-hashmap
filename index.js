@@ -48,8 +48,7 @@ const median = (sequence) => {
 
 const average = sequence => Math.ceil(sequence.reduce((a, b) => a + b) / sequence.length)
 
-const testSetMethod = () => {
-  const n = 1000000 // size of map
+const testSetMethod = (n) => {
   let time = []
   let space = []
 
@@ -102,8 +101,7 @@ const testSetMethod = () => {
 }
 
 // testGet
-const testGetMethod = () => {
-  const n = 10
+const testGetMethod = (n) => {
   let time = []
   let space = []
   // RH Map
@@ -146,8 +144,14 @@ const testGetMethod = () => {
   console.log('ES6 : Median space', median(space).toFixed(4), 'MB')
   console.log('\n')
 }
-// testLoad
 
-// Run tests
-testSetMethod()
-// testGetMethod()
+// Run tests using inputs from command line
+process.argv.forEach((param, position) => {
+  if (param === 'set') {
+    console.log(`initializing set() test for hashmap of size ${process.argv[position + 1]}\n`)
+    testSetMethod(parseInt(process.argv[position + 1], 10))
+  } else if (param === 'get') {
+    console.log(`initializing get() test for hashmap of size ${process.argv[position + 1]}\n`)
+    testGetMethod(parseInt(process.argv[position + 1], 10))
+  }
+})

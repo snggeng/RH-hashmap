@@ -9,6 +9,33 @@ For this implementation, I chose to use a variant of open-addressing that uses l
 
 Robin Hood hashing means that when you’re doing linear probing, you try to position every element such that it is as close as possible to its ideal position. You do this by moving objects around whenever you insert or erase an element, and the method for doing that is that you take from rich elements and give to poor elements. (hence the name Robin Hood hashing) A “rich” element is an element that received a slot close to its ideal insertion point. A “poor” element is one that’s far from its ideal insert point. When you insert a new element using linear probing you count how far you are from your ideal position. If you are further from your ideal position than the current element, you swap the new element with the existing element and try to find a new spot for the existing element. In this manner, we are always trying to reduce the variance between elements and so when the load factor increases, there is no drop in performance.
 
+## Commands
+The following files run on `Node` and use `babel-node` to configure ES6 `import` and `export`. In order to run the files, you'll need to have `Node.js` and `npm` installed on your machine. If you don't have them, the easiest way to install them is using the installer you can find [here](https://nodejs.org/en/download/). Alternatively, you may use package managers like `brew` or `macPorts` (macOS), or the equivalent based on your machine by following the instructions [here](https://nodejs.org/en/download/package-manager/#macos). 'npm' comes with `Node.js` so simply run the following commands to see if you have installed them correctly.
+
+To check if you have Node.js installed, run this command in your terminal:
+```
+node -v
+```
+To confirm that you have npm installed you can run this command in your terminal:
+```
+npm -v  
+```
+
+If you have an old version of npm (version < 5.0.0) or node (version < 8.0.0) it is recommended that you update npm using the following commands:
+```
+npm install npm@latest -g
+```
+
+To run the test suite:
+```
+npm test
+```
+To run the tests for performance:
+```
+npm start <method> <size of map>
+```
+For example, `npm start set 10000` would initialize a new map with fixed-size `n = 10000` and test the `set()` method using this map. Similarly, `npm start get 10` would initialize a new map with fixed-size `n = 10` and test the `get()` method using this map.
+
 ## References
 * https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
 * https://probablydance.com/2017/02/26/i-wrote-the-fastest-hashtable/
@@ -43,7 +70,6 @@ RH : Average space 88.0000 MB
 RH : Median time 1.0000 milliseconds
 RH : Median space 87.3900 MB
 
-
 ************ BEGIN NAIVE **************
 Naive HashMap 0: 1.158ms
 Naive HashMap 1: 0.900ms
@@ -59,7 +85,6 @@ Naive : Average time 1.0000 milliseconds
 Naive : Average space 90.0000 MB
 Naive : Median time 1.0000 milliseconds
 Naive : Median space 89.3100 MB
-
 
 ************ BEGIN ES6 **************
 ES6 HashMap 0: 0.551ms
@@ -95,7 +120,6 @@ RH : Average space 86.0000 MB
 RH : Median time 40.0000 milliseconds
 RH : Median space 86.4700 MB
 
-
 ************ BEGIN NAIVE **************
 Naive HashMap 0: 47.426ms
 Naive HashMap 1: 41.822ms
@@ -111,7 +135,6 @@ Naive : Average time 41.0000 milliseconds
 Naive : Average space 100.0000 MB
 Naive : Median time 42.0000 milliseconds
 Naive : Median space 94.8400 MB
-
 
 ************ BEGIN ES6 **************
 ES6 HashMap 0: 37.975ms
@@ -149,7 +172,6 @@ RH : Average space 144.0000 MB
 RH : Median time 482.0000 milliseconds
 RH : Median space 220.1200 MB
 
-
 ************ BEGIN NAIVE **************
 Naive HashMap 0: 595.133ms
 Naive HashMap 1: 375.301ms
@@ -165,7 +187,6 @@ Naive : Average time 461.0000 milliseconds
 Naive : Average space 156.0000 MB
 Naive : Median time 441.0000 milliseconds
 Naive : Median space 170.0200 MB
-
 
 ************ BEGIN ES6 **************
 ES6 HashMap 0: 474.615ms
@@ -203,7 +224,6 @@ RH : Average space 328.0000 MB
 RH : Median time 4985.0000 milliseconds
 RH : Median space 251.1500 MB
 
-
 ************ BEGIN NAIVE **************
 Naive HashMap 0: 4244.050ms
 Naive HashMap 1: 5792.711ms
@@ -219,7 +239,6 @@ Naive : Average time 5538.0000 milliseconds
 Naive : Average space 538.0000 MB
 Naive : Median time 5794.0000 milliseconds
 Naive : Median space 665.4800 MB
-
 
 ************ BEGIN ES6 **************
 ES6 HashMap 0: 8251.865ms
@@ -246,13 +265,11 @@ RH : Average space 629.0000 MB
 RH : Median time 36834.0000 milliseconds
 RH : Median space 630.3400 MB
 
-
 ************ BEGIN NAIVE **************
 Naive : Average time 52542.0000 milliseconds
 Naive : Average space 887.0000 MB
 Naive : Median time 53408.0000 milliseconds
 Naive : Median space 777.5800 MB
-
 
 ************ BEGIN ES6 **************
 ES6 : Average time 2099865.0000 milliseconds
@@ -340,9 +357,6 @@ ES6 : Median time 0.0000 milliseconds
 ES6 : Median space 92.3000 MB
 ```
 
-### `load()` method
-Statistics
-
 ## Source Tree
 ```
 .
@@ -373,7 +387,6 @@ Statistics
 │       └── utils.spec.js
 └── utils.js
 ```
-## Commands
 
 ## Problem
 Using only primitive types, implement a fixed-size hash map that associates string keys with arbitrary data object references (you don't need to copy the object). Your data structure should be optimized for algorithmic runtime and memory usage. You should not import any external libraries, and may not use primitive hash map or dictionary types in languages like Python or Ruby.
