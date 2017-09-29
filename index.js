@@ -5,13 +5,13 @@ const runSet = (name, m, n, time, space) => {
   const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
   const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
   // Begin for Naive
-  // console.time(`${name}`)
+  console.time(`${name}`)
   const t0 = new Date().getTime()
   for (let i = 0; i < n; i++) {
     const k = uuid.reduce((s, c, index) => c + s + uuid[Math.floor(index * Math.random(uuid.length - 1))], '')
     m.set((k).toString(), arr[Math.floor(Math.random() * 5)])
   }
-  // console.timeEnd(`${name}`)
+  console.timeEnd(`${name}`)
   const t1 = new Date().getTime()
   time.push(t1 - t0)
   const used = (Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100);
@@ -28,14 +28,13 @@ const runGet = (name, m, n, time, space) => {
     const k = `avjsdadkjhdjsadjksakd${i}`
     m.set((k).toString(), arr[Math.floor(Math.random() * 5)])
   }
-  // console.time(`${name}`)
+  console.time(`${name}`)
   const t0 = new Date().getTime()
   // Get map
-  // console.log(k, typeof (k))
   const k = `avjsdadkjhdjsadjksakd${Math.floor(Math.random() * n)}`
   m.get(k)
   const t1 = new Date().getTime()
-  // console.timeEnd(`${name}`)
+  console.timeEnd(`${name}`)
   time.push(t1 - t0)
   const used = (Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100);
   // console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
@@ -104,7 +103,7 @@ const testSetMethod = () => {
 
 // testGet
 const testGetMethod = () => {
-  const n = 10000
+  const n = 10
   let time = []
   let space = []
   // RH Map
@@ -150,5 +149,5 @@ const testGetMethod = () => {
 // testLoad
 
 // Run tests
-// testSetMethod()
-testGetMethod()
+testSetMethod()
+// testGetMethod()

@@ -18,11 +18,118 @@ For hashing when the size of the map is small and there are none or close to non
 
 To test this, I used the default ES6 Map class available in Javascript (variant of sequence chaining) and a Naive implementation of a HashMap that implements open-addressing to benchmark my RobinHood HashMap (RH).
 
-In order to simulate an environment where many collisions occur, I generate keys that contain ASCII letters and numbers and assign a random combination for each `map.set()` operation. When  
 ## Analysis of runtimes
 
-
 ### `set()` method
+The runtime of our `set()` method should differ for all three maps in terms of time and space complexity. In order to simulate an environment where many collisions occur, I generate keys that contain ASCII letters and numbers and assign a random combination for each `map.set()` operation. To test the performance of the same method across all three maps, we implement a similar map of same fixed-size n and set keys multiple times and get the average and median time taken for such an operation using `testSetMethod()`:
+
+For all n where n is the size of our map, the runtime of `set()` for NaiveHashMap and ES6 is small, since there are little or no collisions, and the additional cost of swapping the "rich" and "poor" buckets in RH-HashMap adds to our runtime. However, when n is large and the load factor increases, RH-HashMap performs marginally better in terms of time, but significantly better in terms of space.
+
+When n = 100,
+```
+************ BEGIN RH **************
+RobinHood HashMap 0: 1.693ms
+RobinHood HashMap 1: 1.516ms
+RobinHood HashMap 2: 0.454ms
+RobinHood HashMap 3: 0.540ms
+RobinHood HashMap 4: 0.869ms
+RobinHood HashMap 5: 0.582ms
+RobinHood HashMap 6: 0.496ms
+RobinHood HashMap 7: 0.624ms
+RobinHood HashMap 8: 0.876ms
+RobinHood HashMap 9: 0.499ms
+RH : Average time 1.0000 milliseconds
+RH : Average space 88.0000 MB
+RH : Median time 1.0000 milliseconds
+RH : Median space 87.3900 MB
+
+
+************ BEGIN NAIVE **************
+Naive HashMap 0: 1.158ms
+Naive HashMap 1: 0.900ms
+Naive HashMap 2: 1.137ms
+Naive HashMap 3: 0.986ms
+Naive HashMap 4: 0.734ms
+Naive HashMap 5: 0.578ms
+Naive HashMap 6: 0.515ms
+Naive HashMap 7: 0.466ms
+Naive HashMap 8: 0.495ms
+Naive HashMap 9: 0.449ms
+Naive : Average time 1.0000 milliseconds
+Naive : Average space 90.0000 MB
+Naive : Median time 1.0000 milliseconds
+Naive : Median space 89.3100 MB
+
+
+************ BEGIN ES6 **************
+ES6 HashMap 0: 0.551ms
+ES6 HashMap 1: 1.251ms
+ES6 HashMap 2: 0.255ms
+ES6 HashMap 3: 0.274ms
+ES6 HashMap 4: 0.284ms
+ES6 HashMap 5: 0.322ms
+ES6 HashMap 6: 0.283ms
+ES6 HashMap 7: 0.253ms
+ES6 HashMap 8: 0.236ms
+ES6 HashMap 9: 0.226ms
+ES6 : Average time 1.0000 milliseconds
+ES6 : Average space 91.0000 MB
+ES6 : Median time 0.0000 milliseconds
+ES6 : Median space 90.7300 MB
+```
+When n = 10000, RH and Naive HashMaps perform poorly when compared to ES6.
+```
+************ BEGIN RH **************
+RobinHood HashMap 0: 55.580ms
+RobinHood HashMap 1: 45.802ms
+RobinHood HashMap 2: 36.392ms
+RobinHood HashMap 3: 38.473ms
+RobinHood HashMap 4: 34.374ms
+RobinHood HashMap 5: 42.784ms
+RobinHood HashMap 6: 43.454ms
+RobinHood HashMap 7: 35.047ms
+RobinHood HashMap 8: 39.963ms
+RobinHood HashMap 9: 35.334ms
+RH : Average time 41.0000 milliseconds
+RH : Average space 86.0000 MB
+RH : Median time 40.0000 milliseconds
+RH : Median space 86.4700 MB
+
+
+************ BEGIN NAIVE **************
+Naive HashMap 0: 47.426ms
+Naive HashMap 1: 41.822ms
+Naive HashMap 2: 42.369ms
+Naive HashMap 3: 41.443ms
+Naive HashMap 4: 34.020ms
+Naive HashMap 5: 44.339ms
+Naive HashMap 6: 43.429ms
+Naive HashMap 7: 32.286ms
+Naive HashMap 8: 41.519ms
+Naive HashMap 9: 33.040ms
+Naive : Average time 41.0000 milliseconds
+Naive : Average space 100.0000 MB
+Naive : Median time 42.0000 milliseconds
+Naive : Median space 94.8400 MB
+
+
+************ BEGIN ES6 **************
+ES6 HashMap 0: 37.975ms
+ES6 HashMap 1: 27.730ms
+ES6 HashMap 2: 26.504ms
+ES6 HashMap 3: 24.019ms
+ES6 HashMap 4: 29.518ms
+ES6 HashMap 5: 25.822ms
+ES6 HashMap 6: 29.182ms
+ES6 HashMap 7: 27.799ms
+ES6 HashMap 8: 27.208ms
+ES6 HashMap 9: 27.228ms
+ES6 : Average time 29.0000 milliseconds
+ES6 : Average space 106.0000 MB
+ES6 : Median time 27.0000 milliseconds
+ES6 : Median space 105.5700 MB
+```
+
 When n = 100000, the difference in time and space performance of the RH and the other 2 maps is not significant, but we can already see that RH is slightly more optimized, particularly in terms of space performance.
 
 ```
@@ -95,7 +202,61 @@ ES6 : Median space 1067.5400 MB
 ```
 
 ### `get()` method
-The runtime of our get() method should be O(1) for all three maps. To test the performance of the same method across all three maps, we implement a similar map of same fixed-size n and retrieve a single key multiple times and get the average and median time taken for such an operation:
+The runtime of our `get()` method should be O(1) for all three maps. To test the performance of the same method across all three maps, we implement a similar map of same fixed-size n and retrieve a single key multiple times and get the average and median time taken for such an operation using `testGetMethod()`:
+
+When n = 10, we obtain similar runtimes for all three maps:
+```
+RobinHood HashMap 0: 0.163ms
+RobinHood HashMap 1: 0.060ms
+RobinHood HashMap 2: 0.021ms
+RobinHood HashMap 3: 0.010ms
+RobinHood HashMap 4: 0.012ms
+RobinHood HashMap 5: 0.027ms
+RobinHood HashMap 6: 0.011ms
+RobinHood HashMap 7: 0.037ms
+RobinHood HashMap 8: 0.013ms
+RobinHood HashMap 9: 0.019ms
+RH : Average time 1.0000 milliseconds
+RH : Average space 87.0000 MB
+RH : Median time 0.0000 milliseconds
+RH : Median space 86.3300 MB
+
+
+************ BEGIN NAIVE **************
+Naive HashMap 0: 0.028ms
+Naive HashMap 1: 0.020ms
+Naive HashMap 2: 0.012ms
+Naive HashMap 3: 0.157ms
+Naive HashMap 4: 0.018ms
+Naive HashMap 5: 0.010ms
+Naive HashMap 6: 0.014ms
+Naive HashMap 7: 0.013ms
+Naive HashMap 8: 0.019ms
+Naive HashMap 9: 0.017ms
+Naive : Average time 0.0000 milliseconds
+Naive : Average space 87.0000 MB
+Naive : Median time 0.0000 milliseconds
+Naive : Median space 86.5100 MB
+
+
+************ BEGIN ES6 **************
+ES6 HashMap 0: 0.021ms
+ES6 HashMap 1: 0.009ms
+ES6 HashMap 2: 0.006ms
+ES6 HashMap 3: 0.006ms
+ES6 HashMap 4: 0.007ms
+ES6 HashMap 5: 0.008ms
+ES6 HashMap 6: 0.007ms
+ES6 HashMap 7: 0.006ms
+ES6 HashMap 8: 0.006ms
+ES6 HashMap 9: 0.006ms
+ES6 : Average time 0.0000 milliseconds
+ES6 : Average space 87.0000 MB
+ES6 : Median time 0.0000 milliseconds
+ES6 : Median space 86.5900 MB
+```
+
+
 When n = 1000, we obtain similar runtimes for all three maps.
 ```
 ************ BEGIN RH **************

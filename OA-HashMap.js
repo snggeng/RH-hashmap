@@ -25,7 +25,7 @@ export default class NaiveHashMap {
   }
 
   load() {
-    return this.capacity / this.slots
+    return parseFloat(this.capacity) / parseFloat(this.slots.length)
   }
 
   get(key) {
