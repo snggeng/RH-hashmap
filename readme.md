@@ -22,6 +22,8 @@ RobinHood hashing means that when you’re doing linear probing, you try to posi
 
 A “rich” element is an element that received a slot close to its ideal insertion point. A “poor” element is one that’s far from its ideal insert point. When you insert a new element using linear probing you count how far you are from your ideal position. If you are further from your ideal position than the current element, you swap the new element with the existing element and try to find a new spot for the existing element. In this manner, we are always trying to reduce the variance between elements and so when the load factor increases, there is no drop in performance.
 
+Existing HashMap implementations already exist in the standard libraries of most programming languages. I wanted to make a HashMap that could be useful in specific instances when the standard HashMap would be less performant in terms of memory usage or algorithmic runtime. Particularly, this implementation optimizes for memory usage when the size of the map is large without losing algorithmic runtime performance.
+
 ## References
 * https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
 * https://probablydance.com/2017/02/26/i-wrote-the-fastest-hashtable/
