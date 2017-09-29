@@ -29,7 +29,11 @@ Existing HashMap implementations already exist in the standard libraries of most
 * https://probablydance.com/2017/02/26/i-wrote-the-fastest-hashtable/
 
 ## Commands
-The following files run on `Node` and use `babel-node` to configure ES6 `import` and `export`. In order to run the files, you'll need to have `Node.js` and `npm` installed on your machine. If you don't have them, the easiest way to install them is using the installer you can find [here](https://nodejs.org/en/download/). Alternatively, you may use package managers like `brew` or `macPorts` (macOS), or the equivalent based on your machine by following the instructions [here](https://nodejs.org/en/download/package-manager/#macos). `npm` comes with `Node.js` so simply run the following commands to see if you have installed them correctly.
+The following files run on `Node` and use `babel-node` to configure ES6 `import` and `export`.
+
+In order to run the files, you'll need to have `Node.js` and `npm` installed on your machine. If you don't have them, the easiest way to install them is using the installer you can find [here](https://nodejs.org/en/download/).
+
+Alternatively, you may use package managers like `brew` or `macPorts` (macOS), or the equivalent based on your machine by following the instructions [here](https://nodejs.org/en/download/package-manager/#macos). `npm` comes with `Node.js` so simply run the following commands to see if you have installed them correctly.
 
 To check if you have Node.js installed, run this command in your terminal:
 ```
