@@ -405,16 +405,15 @@ ES6 : Median space 92.3000 MB
 │   │       └── index.html
 │   └── lcov.info
 ├── index.js
-├── logger.js
 ├── package-lock.json
 ├── package.json
 ├── readme.md
 ├── test
 │   └── classes
 │       ├── hashMap.spec.js
-│       ├── logger.spec.js
 │       └── utils.spec.js
 └── utils.js
+
 ```
 ## KPCB Engineering Fellows Challenge Details
 ### Problem
