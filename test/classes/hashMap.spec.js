@@ -170,6 +170,11 @@ describe('HashMap', () => {
       sut = h.delete('k2')
       expect(sut).to.equal(null)
     })
+    it('should return null if map is empty', () => {
+      const h = new HashMap(1)
+      const sut = h.delete('key')
+      expect(sut).to.equal(null)
+    })
   })
 
   describe('#load()', () => {
