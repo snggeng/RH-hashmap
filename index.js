@@ -15,30 +15,35 @@ const runSet = (name, m, n, time, space) => {
   const t1 = new Date().getTime()
   time.push(t1 - t0)
   const used = (Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100);
-  // console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+
   space.push(Math.round(used * 100) / 100)
 }
 
 const run = (func, name, m, n, time, space) => {
-  // const uuid = ['1', 'a', 'c', 'f', '0', 'x', 'f', 'g', 'e', 'd', 'h']
   // Check that run() initialized using method
   const arr = [[0, 1], { test: 'good' }, { happy: ['tree', 0] }, 10000, 'hello']
   const methodToCall = func === 'get' ? k => m.get(k) : k => m.delete(k)
+
   // Set Map
   for (let i = 0; i < n; i++) {
     const k = `avjsdadkjhdjsadjksakd${i}`
     m.set((k).toString(), arr[Math.floor(Math.random() * 5)])
   }
+
   console.time(`${name}`)
+
   const t0 = new Date().getTime()
+
   // Get map
   const k = `avjsdadkjhdjsadjksakd${Math.floor(Math.random() * n)}`
   methodToCall(k)
   const t1 = new Date().getTime()
+
   console.timeEnd(`${name}`)
+
   time.push(t1 - t0)
   const used = (Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100);
-  // console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+
   space.push(Math.round(used * 100) / 100)
 }
 
