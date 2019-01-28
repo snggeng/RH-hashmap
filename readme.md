@@ -22,7 +22,7 @@ Existing HashMap implementations already exist in the standard libraries of most
 * https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
 * https://probablydance.com/2017/02/26/i-wrote-the-fastest-hashtable/
 
-## Commands
+## Usage
 The following files run on `Node` and use `babel-node` to configure ES6 `import` and `export`.
 
 In order to run the files, you'll need to have `Node.js` and `npm` installed on your machine. If you don't have them, the easiest way to install them is using the installer you can find [here](https://nodejs.org/en/download/).
