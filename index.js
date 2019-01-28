@@ -155,10 +155,10 @@ const testMethod = (method, n) => {
 const param = process.argv[2]
 const num = process.argv[3]
 if (param === 'set') {
-  console.log(`initializing set() test for hashmap of size ${process.argv[num]}\n`)
+  console.log(`initializing set() test for hashmap of size ${num}\n`)
   testSetMethod(parseInt(num, 10))
 } else if (param === 'get' || param === 'delete') {
-  console.log(`initializing ${param}() test for hashmap of size ${process.argv[num]}\n`)
+  console.log(`initializing ${param}() test for hashmap of size ${num}\n`)
   testMethod(param, parseInt(num, 10))
 } else {
   console.log('Invalid input: the valid methods are -- set, get, delete\n\nTry running:\nnpm start get 1000')
