@@ -1,4 +1,5 @@
 # RobinHood HashMap
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 This is an implementation of a HashMap data structure that uses [Robinhood Hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing) in JS.
 
 ## Explanation of Choice of HashMap Implementation
