@@ -1,18 +1,12 @@
-# KPCB Engineering Fellows Program
-
-## Applicant Information
-* Name: Geng Sng
-* School: Duke University
-* Github: [@snggeng](https://github.com/snggeng)
-* Website: [geng.io](https://geng.io)
-* Resume: [Click here](https://geng.io/Geng-Sng-Resume.pdf)
+# RobinHood HashMap
+This is an implementation of a HashMap data structure that uses [Robinhood Hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing) in JS.
 
 ## Explanation of Choice of HashMap Implementation
-This project is an implementation of a Fix-sized HashMap using RobinHood Hashing. When choosing between the existing methods of resolving hash collisions, a trade-off needs to be made between time and space complexity.
+This project is an implementation of a Fix-sized HashMap using [Robinhood Hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing). When choosing between the existing methods of resolving hash collisions, a trade-off needs to be made between time and space complexity.
 
-There are two major types of implementations: one is chaining and the other is open addressing.
-* **Chaining** is quite common in most standard libraries, where the collision is handled by appending items into a linked list headed by the bucket the key is mapped to.
-* **Open addressing** uses a different mechanism to handle collision: the key (and value) is inserted to another bucket if the bucket it attempt to insert is already occupied.
+There are two major types of implementations: one is **chaining** and the other is **open addressing**.
+* **Chaining** is quite common in most standard libraries, where the collision is handled by appending items into a linked list headed by the bucket the key is mapped to. For instance, Java and JS both use variations of this method to implement their native `HashMap` and `Map` classes.
+* **Open addressing** uses a different mechanism to handle collision: the key (and value) is inserted to another bucket if the bucket it attempt to insert is already occupied. For instance, Rust uses a variation of this method to implement their equivalent of a `HashMap` interface.
 
 Open addressing has some clear advantages over chaining. First, it does not require extra memory allocation. This reduces memory allocation overhead and can possibly improve cpu caching. Moreover, in open addressing the developer has more control on memory layout – placing elements in buckets with certain order to make probing (search on alternative location for key) fast. Best of all, open addressing gives us better memory lower bound over chaining.
 
@@ -41,7 +35,7 @@ node -v
 ```
 To confirm that you have `npm` installed you can run this command in your terminal:
 ```
-npm -v  
+npm -v
 ```
 
 If you have an old version of `npm` (version < 5.0.0) or `Node.js` (version < 8.0.0) it is recommended that you update `npm` using the following commands:
