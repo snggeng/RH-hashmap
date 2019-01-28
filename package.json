@@ -1,5 +1,5 @@
 {
-  "name": "kpcb_challenge",
+  "name": "RH-hashmap",
   "version": "1.0.0",
   "description": "Hash Map Class Implementation for KPCB Challenge 2017, © Geng Sng",
   "main": "hashMap.js",
@@ -15,7 +15,7 @@
   "devDependencies": {
     "eslint": "^4.6.1",
     "eslint-config-airbnb-base": "^12.0.0",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-import": "^2.15.0",
     "mocha": "^3.5.0",
     "nyc": "^11.2.1"
   },
