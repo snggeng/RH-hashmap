@@ -24,7 +24,7 @@ Existing HashMap implementations already exist in the standard libraries of most
 * https://probablydance.com/2017/02/26/i-wrote-the-fastest-hashtable/
 
 ## Spec
-We implement ut fixed-size hash map using only primitive types, with no dependencies on any external libraries. Usage of the HashMap class in JS is for benchmarking purposes only.
+We implement our fixed-size hash map using only primitive types, with no dependencies on any external libraries. Usage of the HashMap class in JS is for benchmarking purposes only.
 
 ### Methods
 `constructor(size)`: return an instance of the class with pre-allocated space for the given number of objects.
