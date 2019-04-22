@@ -130,18 +130,18 @@ const testMethod = (method, n) => {
   space = []
 
   // Naive Map
-  console.log('************ BEGIN NAIVE **************')
-  const h2 = new NaiveHashMap(n)
-  for (let i = 0; i < n; i++) {
-    run(func, `Naive HashMap ${i}`, h2, n, time, space)
-  }
-  console.log('Naive : Average time', average(time).toFixed(4), 'milliseconds')
-  console.log('Naive : Average space', average(space).toFixed(4), 'MB')
-  console.log('Naive : Median time', median(time).toFixed(4), 'milliseconds')
-  console.log('Naive : Median space', median(space).toFixed(4), 'MB')
-  console.log('\n')
-  time = []
-  space = []
+  // console.log('************ BEGIN NAIVE **************')
+  // const h2 = new NaiveHashMap(n)
+  // for (let i = 0; i < n; i++) {
+  //   run(func, `Naive HashMap ${i}`, h2, n, time, space)
+  // }
+  // console.log('Naive : Average time', average(time).toFixed(4), 'milliseconds')
+  // console.log('Naive : Average space', average(space).toFixed(4), 'MB')
+  // console.log('Naive : Median time', median(time).toFixed(4), 'milliseconds')
+  // console.log('Naive : Median space', median(space).toFixed(4), 'MB')
+  // console.log('\n')
+  // time = []
+  // space = []
 
   // ES6 Map
   console.log('************ BEGIN ES6 **************')
